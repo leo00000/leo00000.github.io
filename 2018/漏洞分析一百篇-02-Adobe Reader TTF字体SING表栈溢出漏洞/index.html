@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html style="display: none;" lang="zh">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        © Material Theme
+        https://github.com/viosey/hexo-theme-material
+        Version: 1.5.2 -->
+    <script>
+        window.materialVersion = "1.5.2"
+        // Delete localstorage with these tags
+        window.oldVersion = [
+            'codestartv1',
+            '1.3.4',
+            '1.4.0',
+            '1.4.0b1',
+            '1.5.0'
+        ]
+    </script>
+
+    <!-- dns prefetch -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+
+
+    <link rel="dns-prefetch" href="https://busuanzi.ibruce.info"/>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Meta & Info -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!-- Title -->
+    
+    <title>
+        
+            漏洞分析一百篇-02-Adobe Reader TTF字体SING表栈溢出漏洞 | 
+        
+        leo00000的个人博客
+    </title>
+
+    <!-- Favicons -->
+    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
+    <link rel="icon" href="/img/favicon.png">
+
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="description" itemprop="description" content="leo00000&#39; blog">
+    <meta name="keywords" content="ctf 渗透测试 hacker leo00000,EXP,格式解析,字符串定位,ROP,CVE,Adobe Reader">
+    <meta name="theme-color" content="#0097A7">
+
+    <!-- Disable Fucking Bloody Baidu Tranformation -->
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="/css/ie-blocker.css">
+
+        
+            <script src="/js/ie-blocker.zhCN.js"></script>
+        
+    <![endif]-->
+
+    <!-- Import lsloader -->
+    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
+
+    <!-- Import queue -->
+    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
+
+    <!-- Import CSS -->
+    
+        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+        
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/atelier-dune-dark.min.css?Sq+/jscLQsK3lkqis0e/aA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
+
+    
+
+    
+
+    <!-- Config CSS -->
+
+<!-- Other Styles -->
+<style>
+  body, html {
+    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    overflow-x: hidden !important;
+  }
+  
+  code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  a {
+    color: #00838F;
+  }
+
+  .mdl-card__media,
+  #search-label,
+  #search-form-label:after,
+  #scheme-Paradox .hot_tags-count,
+  #scheme-Paradox .sidebar_archives-count,
+  #scheme-Paradox .sidebar-colored .sidebar-header,
+  #scheme-Paradox .sidebar-colored .sidebar-badge{
+    background-color: #0097A7 !important;
+  }
+
+  /* Sidebar User Drop Down Menu Text Color */
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
+  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
+    color: #0097A7 !important;
+  }
+
+  #post_entry-right-info,
+  .sidebar-colored .sidebar-nav li:hover > a,
+  .sidebar-colored .sidebar-nav li:hover > a i,
+  .sidebar-colored .sidebar-nav li > a:hover,
+  .sidebar-colored .sidebar-nav li > a:hover i,
+  .sidebar-colored .sidebar-nav li > a:focus i,
+  .sidebar-colored .sidebar-nav > .open > a,
+  .sidebar-colored .sidebar-nav > .open > a:hover,
+  .sidebar-colored .sidebar-nav > .open > a:focus,
+  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
+    color: #0097A7 !important;
+  }
+
+  .toTop {
+    background: #757575 !important;
+  }
+
+  .material-layout .material-post>.material-nav,
+  .material-layout .material-index>.material-nav,
+  .material-nav a {
+    color: #757575;
+  }
+
+  #scheme-Paradox .MD-burger-layer {
+    background-color: #757575;
+  }
+
+  #scheme-Paradox #post-toc-trigger-btn {
+    color: #757575;
+  }
+
+  .post-toc a:hover {
+    color: #00838F;
+    text-decoration: underline;
+  }
+
+</style>
+
+
+<!-- Theme Background Related-->
+
+    <style>
+      body{
+        background-image: url(/img/bg.png);
+      }
+    </style>
+
+
+
+
+<!-- Fade Effect -->
+
+    <style>
+      .fade {
+        transition: all 800ms linear;
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        opacity: 1;
+      }
+
+      .fade.out{
+        opacity: 0;
+      }
+    </style>
+
+
+<!-- Import Font -->
+<!-- Import Roboto -->
+
+    <link href="https://fonts.proxy.ustclug.org/css?family=Roboto:300,400,500" rel="stylesheet">
+
+
+<!-- Import Material Icons -->
+
+
+    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+
+
+
+
+    <!-- Import jQuery -->
+    
+        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
+    
+
+    <!-- WebAPP Icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="leo00000的个人博客">
+    <meta name="msapplication-starturl" content="http://leo00000.cn/2018/漏洞分析一百篇-02-Adobe Reader TTF字体SING表栈溢出漏洞/">
+    <meta name="msapplication-navbutton-color" content="#0097A7">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="leo00000的个人博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="/img/favicon.png">
+
+    <!-- Site Verification -->
+    
+    
+
+    <!-- RSS -->
+    
+
+    <!-- The Open Graph protocol -->
+    <meta property="og:url" content="http://leo00000.cn/2018/漏洞分析一百篇-02-Adobe Reader TTF字体SING表栈溢出漏洞/">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="漏洞分析一百篇-02-Adobe Reader TTF字体SING表栈溢出漏洞 | leo00000的个人博客">
+    <meta property="og:image" content="/img/favicon.png">
+    <meta property="og:description" content="leo00000&#39; blog">
+    <meta property="og:article:tag" content="EXP"> <meta property="og:article:tag" content="格式解析"> <meta property="og:article:tag" content="字符串定位"> <meta property="og:article:tag" content="ROP"> <meta property="og:article:tag" content="CVE"> <meta property="og:article:tag" content="Adobe Reader"> 
+
+    
+        <meta property="article:published_time" content="Wed Jul 04 2018 00:00:00 GMT+0800">
+        <meta property="article:modified_time" content="Wed Jul 04 2018 14:05:19 GMT+0800">
+    
+
+    <!-- The Twitter Card protocol -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Add canonical link for SEO -->
+    
+        <link rel="canonical" href="http://leo00000.cn/2018/漏洞分析一百篇-02-Adobe Reader TTF字体SING表栈溢出漏洞/index.html" />
+    
+
+    <!-- Structured-data for SEO -->
+    
+        
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://leo00000.cn/2018/漏洞分析一百篇-02-Adobe Reader TTF字体SING表栈溢出漏洞/index.html",
+    "headline": "漏洞分析一百篇-02-Adobe Reader TTF字体SING表栈溢出漏洞",
+    "datePublished": "Wed Jul 04 2018 00:00:00 GMT+0800",
+    "dateModified": "Wed Jul 04 2018 14:05:19 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "leo00000",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.jpeg"
+        },
+        "description": "The more quiet you are, the more you hear."
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "leo00000的个人博客",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",EXP,格式解析,字符串定位,ROP,CVE,Adobe Readerctf 渗透测试 hacker leo00000",
+    "description": "leo00000&#39; blog",
+}
+</script>
+
+
+    
+
+    <!-- Analytics -->
+    
+    
+    
+        <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1271946750&web_id=1271946750" language="JavaScript"></script>
+</div>
+    
+
+    <!-- Custom Head -->
+    
+
+</head>
+
+
+    
+        <body id="scheme-Paradox" class="lazy">
+            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
+                
+
+                <!-- Main Container -->
+                <main class="material-layout__content" id="main">
+
+                    <!-- Top Anchor -->
+                    <div id="top"></div>
+
+                    
+                        <!-- Hamburger Button -->
+                        <button class="MD-burger-icon sidebar-toggle">
+                            <span class="MD-burger-layer"></span>
+                        </button>
+                    
+
+                    <!-- Post TOC -->
+
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分析环境"><span class="post-toc-number">1.</span> <span class="post-toc-text">分析环境</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基于字符串定位的漏洞分析方法"><span class="post-toc-number">2.</span> <span class="post-toc-text">基于字符串定位的漏洞分析方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Exploit分析"><span class="post-toc-number">3.</span> <span class="post-toc-text">Exploit分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#如何跳转到ROPChain"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">如何跳转到ROPChain</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#ROPChain分析"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">ROPChain分析</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">总结</span></a></li></ol>
+    </ul>
+    
+
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
+    
+        
+            <!-- Random Thumbnail -->
+            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
+
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').addClass('lazy');
+</script>
+
+        
+    
+            <p class="article-headline-p">
+                漏洞分析一百篇-02-Adobe Reader TTF字体SING表栈溢出漏洞
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.jpeg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>leo00000</strong>
+        <span>7月 04, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Adobe-Reader/">Adobe Reader</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/CVE/">CVE</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/EXP/">EXP</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/ROP/">ROP</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/字符串定位/">字符串定位</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/格式解析/">格式解析</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=漏洞分析一百篇-02-Adobe Reader TTF字体SING表栈溢出漏洞&url=http://leo00000.cn/2018/漏洞分析一百篇-02-Adobe Reader TTF字体SING表栈溢出漏洞/index.html&pic=http://leo00000.cn/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=leo00000的个人博客&title=漏洞分析一百篇-02-Adobe Reader TTF字体SING表栈溢出漏洞&summary=leo00000&#39; blog&pics=http://leo00000.cn/img/favicon.png&url=http://leo00000.cn/2018/漏洞分析一百篇-02-Adobe Reader TTF字体SING表栈溢出漏洞/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
+    
+</div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>分析此漏洞旨在学习基于字符串定位的漏洞方法和ROP编程技巧，结合漏洞战争一书，事半功倍。</p>
+<h3 id="分析环境"><a href="#分析环境" class="headerlink" title="分析环境"></a>分析环境</h3><table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:left">推荐使用的环境</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>操作系统</td>
+<td style="text-align:left">Windows7 x64 SP1</td>
+<td style="text-align:left">Build 7601 简体中文版</td>
+</tr>
+<tr>
+<td>漏洞软件</td>
+<td style="text-align:left">Adobe Reader</td>
+<td style="text-align:left">版本号：9.3.0英文版</td>
+</tr>
+</tbody>
+</table>
+<p>首先在msf中使用cve-2010-2883对目标环境进行测试，验证成功之后开始我们的分析之旅。<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/verify.png"></p>
+<h3 id="基于字符串定位的漏洞分析方法"><a href="#基于字符串定位的漏洞分析方法" class="headerlink" title="基于字符串定位的漏洞分析方法"></a>基于字符串定位的漏洞分析方法</h3><p>根据漏洞描述,该漏洞是Adobe Reader中的CoolType.dll库在解析字体文件SING表中的uniqueName时出现了栈溢出，<code>Alt+B</code>搜索字符串SING，得到几个可疑的地址，对样本动态调试时对可疑地址下断点，由于栈溢出中一般不会离可疑地址太远。我们在函数中直接执行到返回，程序崩溃或者进入了payload，那么离崩溃点最近的断点极有可能在就是溢出点所在的函数中，断点如下：<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/breakpoint.png"><br>实际过程中定位到<code>0x7012dc6d</code>(由于Win7默认开启ASLR，CoolType.dll基址为<code>0x700f0000</code>),换算成相对地址0x0003dc5c。</p>
+<pre><code class="text">.text:0003DBF2    push    ebp
+.text:0003DBF3    sub     esp, 104h                       ; 分配栈的大小为0x104
+.text:0003DBF9  lea     ebp, [esp-4]
+.text:0003DBFD  mov     eax, ___security_cookie
+.text:0003DC02  xor     eax, ebp
+.text:0003DC04  mov     [ebp+108h+var_4], eax
+.text:0003DC0A  push    4Ch
+.text:0003DC0C  mov     eax, offset sub_1847C4
+.text:0003DC11  call    __EH_prolog3_catch
+.text:0003DC16  mov     eax, [ebp+108h+arg_C]
+.text:0003DC1C  mov     edi, [ebp+108h+arg_0]
+.text:0003DC22  mov     ebx, [ebp+108h+arg_4]
+.text:0003DC28  mov     [ebp+108h+var_130], edi
+.text:0003DC2B  mov     [ebp+108h+var_138], eax
+.text:0003DC2E  call    sub_41626
+.text:0003DC33  xor     esi, esi
+.text:0003DC35  cmp     dword ptr [edi+8], 3
+.text:0003DC39  mov     [ebp+108h+var_10C], esi
+.text:0003DC3C  jz      loc_3DDF9
+.text:0003DC42  mov     [ebp+108h+var_124], esi
+.text:0003DC45  mov     [ebp+108h+var_120], esi
+.text:0003DC48  cmp     dword ptr [edi+0Ch], 1
+.text:0003DC4C  mov     byte ptr [ebp+108h+var_10C], 1
+.text:0003DC50  jnz     loc_3DDA2
+.text:0003DC56  push    offset aName    ; &quot;name&quot;
+.text:0003DC5B  push    edi             ; int
+.text:0003DC5C  lea     ecx, [ebp+108h+var_124]    
+.text:0003DC5F  mov     [ebp+108h+var_119], 0
+.text:0003DC63  call    sub_2178F
+.text:0003DC68  cmp     [ebp+108h+var_124], esi
+.text:0003DC6B  jnz     short loc_3DCD6
+.text:0003DC6D  push    offset aSing    ; &quot;SING&quot;
+.text:0003DC72  push    edi             ; int
+.text:0003DC73  lea     ecx, [ebp+108h+var_12C]    
+.text:0003DC76  call    sub_21ABE                       ; 处理完该函数后,ebp+108h+var_12C指向SING表首地址
+.text:0003DC7B  mov     eax, [ebp+108h+var_12C]         ; SING表数据结构在堆上
+.text:0003DC7E  cmp     eax, esi                        ; 判断SING表首地址是否为空
+.text:0003DC80  mov     byte ptr [ebp+108h+var_10C], 2
+.text:0003DC84  jz      short loc_3DCBD                 ; 非空，不跳转
+.text:0003DC86  mov     ecx, [eax]                      ; 字体版本号(0x00010000)
+.text:0003DC88  and     ecx, 0FFFFh                     ; 取低位位
+.text:0003DC8E  jz      short loc_3DC98                 ; 跳转
+.text:0003DC90  cmp     ecx, 100h
+.text:0003DC96  jnz     short loc_3DCB9
+.text:0003DC98
+.text:0003DC98 loc_3DC98:                               ; CODE XREF: sub_3DBF2+9Cj
+.text:0003DC98  add     eax, 10h                        ; 指向uniqueName
+.text:0003DC9B  push    eax             ; char *        ; strcat第二个参数，源地址
+.text:0003DC9C  lea     eax, [ebp+108h+var_108]
+.text:0003DC9F  push    eax             ; char *        ; strcat第一个参数，目的地址,使用ebp做目的地址
+.text:0003DCA0  mov     [ebp+108h+var_108], 0
+.text:0003DCA4  call    strcat                          ; 样本中的0x368-0x12c=0x23c,超出了0x104，造成溢出
+</code></pre>
+<p>下面两幅图是strcat之后memory dump和样本中uniqueName字段的比较,可以观察到栈溢出。<br>样本调试memory dump<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/strcatAfter.png"><br>样本中的uniqueName字段<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/uniqueName.png"></p>
+<h3 id="Exploit分析"><a href="#Exploit分析" class="headerlink" title="Exploit分析"></a>Exploit分析</h3><h4 id="如何跳转到ROPChain"><a href="#如何跳转到ROPChain" class="headerlink" title="如何跳转到ROPChain"></a>如何跳转到ROPChain</h4><p>做EXP的分析就是为了我们以后能写出自己的EXP，在这里我们再深入一些思考。定位到溢出点之后为了写一个有趣的EXP，这里我们选择覆盖SEH指针绕过GS，再通过ROP绕过DEP，大致思路是这样，接下来我们详细分析。<br>执行strcat之后，我们进行逐函数跟踪，由于栈已经被破坏回溯的方法在这里并不好用，当然这里也不推崇泉哥的内存访问断点，因为这种方法忽略了很多细节，并不利于我们写EXP，而且导致<a href="https://bbs.ichunqiu.com/thread-8849-1-1.html" target="_blank" rel="noopener">部分人</a>以为是通过SEH进入ROP的。下面列出单步关键位置：</p>
+<pre><code class="text">.text:0003DDA8  call    sub_16B96       ; 此处StepOver会崩溃，定位到sub_16B96
+.text:00016C0E  call    sub_1BAD9       ; 此处StepOver会崩溃，定位到sub_1BAD9
+.text:0001BAF9  call    dword ptr [eax] ; 在sub_1BAD9中此处StepOver会崩溃,实际进入sub_8AFCE
+.text:0008B1C0  call    dword ptr [eax] ; 此处[EAX]=0x4a80cb38,是我们样本中的数据,从这里开始进入ROPChain
+</code></pre>
+<p>这个时候朋友们就要问一句自己写EXP的时候怎么知道在0x8B1C0处<code>call    dword ptr [eax]</code>能达到利用的目的呢？我们再想一想，由于有safeSEH的存在，这里通过覆盖SEH进入payload并不是一个特别好的选择，由于有GS保护覆盖返回地址也行不通。通过上面<code>call    dword ptr [eax]</code>指令，在strcat覆盖之前[eax]=0x832b5(相对地址)，猜测极有可能是通过覆盖虚函数地址，进入payload。<br>开启了safeSEH保护：<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/safeSEH.png"><br>逆向验证是，发现<code>call    dword ptr [eax]</code>确实应该是结构体中的函数指针,更深入的分析可能就需要一个官方资料或者逆向大牛提供数据结构参考了。<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/eax.png"></p>
+<h4 id="ROPChain分析"><a href="#ROPChain分析" class="headerlink" title="ROPChain分析"></a>ROPChain分析</h4><p>下图中0x4a82a714和0x4a80cb38是精心选择的两处地址，我们选择未开启ASLR保护的icucnv36.dll绕过ASLR,从而保证了EXP的通用性。现在有ROP gadgets查找的工具，更方便EXP的开发，ROP指令1需要满足ebp在我们溢出的范围内可控；ROP指令2配合js的Heap Spray将需要的数据提前分配到栈上0x0c0c0c08，js样本参考书中，metasploit简单混淆了下。<br>ROP指令1<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/rop1.png"><br>ROP指令2<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/rop2.png"><br><br>在之后的ROP中通过CreateFileA创建一个名为iso88591的文件，使用CreateFileMappingA和MapViewOfFile分配一片可执行文件内存映射，然后使用memcpy将shellcode拷贝到分配的内存中以此来绕过DEP，最后进入shellcode。<br>ROP指令3<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/rop3.png"><br>ROP指令4<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/rop4.png"><br>ROP指令5<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/rop5.png"><br>createFile的参数<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/createFileArgs.png"><br>createFilemMapping的参数<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/createFileMappingArgs.png"><br>mapViewofFile的参数<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/mapViewofFileArgs.png"><br>memcpy的参数<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/memcpyArgs.png"><br>其中我们仔细观察CreateFileA的返回值是0xffffffff，根据CreateFileMappingA的参数创建的是一个物理文件无关的内存映射，所以这个CreateFileA是冗余的。这里我们分析两段重要的ROP代码：<br>1.函数的调用，在icucnv36.dll分别找到0x4a84903c、0x4a849038、0x4a849030和0x4a849170分别指向各API地址。<br>这里调试发现kernel32.dll固定加载在0x75f30000处。</p>
+<pre><code>0x4a801f90,   # pop eax / ret
+0x4a84903c,   # becomes eax (import for CreateFileA)
+0x4a80b692,   # jmp [eax]     等效于 jmp CreateFileA
+0x4a801064,   # ret   CreateFileA的返回地址
+</code></pre><p>2.函数之间的参数传递，CreateFileMappingA的返回值是做MapViewofFile的参数，MapViewofFile的返回值做memcpy的目的地址。</p>
+<pre><code>0x4a842db2,   # xchg eax,edi / ret 返回值在eax，先将eax和edi交换
+0x4a802ab1,   # pop ebx / ret 
+0x00000030,   # becomes ebx - offset to modify 利用ebx作修正值，来修改即将调用函数的参数
+0x4a80a8a6,   # execute fun block  等效于 AND DWORD PTR SS:[ESP+EBX*2],EDI 结合ebx将edi参数传递到栈中
+</code></pre><p>通过上面一段代码就可以达到参数传递的目的，其中memcpy需要三次修改栈上数据(目的地址、源地址和memcpy返回值)，其中两次要用到目的地址(一次是拷贝、一次是返回)，会先将目的地址存在0x4a8a0004处，书中要求0x4a8a08e2可读可写也是这个道理。<br>这里说明一点，该ROPChain中修改栈上参数都是用的上述法2，Metasploit给的CVE-2010-2883的EXP，这里注释不准确,<code>0x4a80aedc</code>处的代码只是将栈的偏移存在edx备用，并未直接修改memcpy的返回值。<br><img src="/2018/漏洞分析一百篇-02-Adobe%20Reader%20TTF字体SING表栈溢出漏洞/confirm.png"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>写完博客才发现截图特别不清晰，下次改进，再就是老生常谈的一句话“尽信书不如无书”，自己多动手才能获得属于自己的知识。有经验的Pwner在CTF中很容易发现漏洞点，大家更多侧重是漏洞利用，而真实的漏洞可能需要更多时间去定位漏洞点，会处理更为复杂的数据结构和代码逻辑，比方说逆向定位结构体和虚函数表，在下一步的学习中，会继续介绍相关方面的资料。</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/漏洞分析一百篇-01-winamp中M3U文件解析漏洞/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/漏洞分析一百篇-04-pingpongroot-WX利用/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
+
+
+                    
+                        <!-- Overlay For Active Sidebar -->
+<div class="sidebar-overlay"></div>
+
+<!-- Material sidebar -->
+<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
+    <div id="sidebar-main">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
+    <!-- Top bar -->
+    <div class="top-bar"></div>
+
+    <!-- Sidebar toggle button -->
+    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
+        <i class="material-icons">clear_all</i>
+        <span class="mdl-button__ripple-container">
+            <span class="mdl-ripple">
+            </span>
+        </span>
+    </button>
+
+    <!-- Sidebar Avatar -->
+    <div class="sidebar-image">
+        <img src="/img/avatar.jpeg" alt="leo00000's avatar">
+    </div>
+
+    <!-- Sidebar Email -->
+    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
+        leo3.14@foxmail.com
+        <b class="caret"></b>
+    </a>
+</div>
+
+
+        <!-- Sidebar Navigation  -->
+        <ul class="nav sidebar-nav">
+    <!-- User dropdown  -->
+    <li class="dropdown">
+        <ul id="settings-dropdown" class="dropdown-menu">
+            
+                <li>
+                    <a href="#" target="_blank" title="Email Me">
+                        
+                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
+                        
+                        Email Me
+                    </a>
+                </li>
+            
+        </ul>
+    </li>
+
+    <!-- Homepage -->
+    
+        <li id="sidebar-first-li">
+            <a href="/">
+                
+                    <i class="material-icons sidebar-material-icons">home</i>
+                
+                主页
+            </a>
+        </li>
+        
+    
+
+    <!-- Archives  -->
+    
+        <li class="dropdown">
+            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
+                
+                    <i class="material-icons sidebar-material-icons">inbox</i>
+                
+                    归档
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            <li>
+                <a class="sidebar_archives-link" href="/archives/2018/07/">七月 2018<span class="sidebar_archives-count">7</span></a>
+            </ul>
+        </li>
+        
+    
+
+    <!-- Categories  -->
+    
+
+    <!-- Pages  -->
+    
+        <li>
+            <a href="/tags" title="标签云">
+                
+                    <i class="material-icons sidebar-material-icons">cloud_circle</i>
+                
+                标签云
+            </a>
+        </li>
+        
+            <li class="divider"></li>
+        
+    
+
+    <!-- Article Number  -->
+    
+        <li>
+            <a href="/archives">
+                文章总数
+                <span class="sidebar-badge">7</span>
+            </a>
+        </li>
+        
+    
+</ul>
+
+
+        <!-- Sidebar Footer -->
+        <!--
+I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
+If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
+It will not impact the appearance and can give developers a lot of support :)
+
+很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
+如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
+它不会影响美观并可以给开发者很大的支持和动力。 :)
+-->
+
+<!-- Sidebar Divider -->
+
+    <div class="sidebar-divider"></div>
+
+
+<!-- Theme Material -->
+
+    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
+        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
+            主题 - Material
+            <span class="sidebar-badge badge-circle">i</span>
+        </div>
+    </a>
+
+
+<!-- Help & Support -->
+<!--
+
+-->
+
+<!-- Feedback -->
+<!--
+
+-->
+
+<!-- About Theme -->
+<!--
+
+-->
+
+    </div>
+
+    <!-- Sidebar Image -->
+    
+
+</aside>
+
+                    
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
+
+                    <!--Footer-->
+<footer class="mdl-mini-footer" id="bottom">
+    
+        <!-- Paradox Footer Left Section -->
+        <div class="mdl-mini-footer--left-section sns-list">
+    <!-- Twitter -->
+    
+
+    <!-- Facebook -->
+    
+
+    <!-- Google + -->
+    
+
+    <!-- Weibo -->
+    
+
+    <!-- Instagram -->
+    
+
+    <!-- Tumblr -->
+    
+
+    <!-- Github -->
+    
+        <a href="https://github.com/leo00000" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
+                <span class="visuallyhidden">Github</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- LinkedIn -->
+    
+
+    <!-- Zhihu -->
+    
+        <a href="https://www.zhihu.com/people/yang-xiao-niu-6-92-41/activities" target="_blank">
+            <button class="mdl-mini-footer--social-btn social-btn footer-sns-zhihu">
+                <span class="visuallyhidden">Zhihu</span>
+            </button><!--
+     --></a>
+    
+
+    <!-- Bilibili -->
+    
+
+    <!-- Telegram -->
+    
+    
+    <!-- V2EX -->
+    
+</div>
+
+
+        <!--Copyright-->
+        <div id="copyright">
+            Copyright&nbsp;©<script type="text/javascript">var fd = new Date();document.write("&nbsp;" + fd.getFullYear() + "&nbsp;");</script>leo00000的个人博客
+            
+                <br>
+                
+                    <a class="footer-develop-a" href="https://coding.net/pages " rel="nofollow" target="_blank">Hosted by Coding Pages</a>
+                
+            
+        </div>
+
+        <!-- Paradox Footer Right Section -->
+
+        <!--
+        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
+        It will not impact the appearance and can give developers a lot of support :)
+
+        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
+        它不会影响美观并可以给开发者很大的支持。 :)
+        -->
+
+        <div class="mdl-mini-footer--right-section">
+            <div>
+                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
+                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
+            </div>
+        </div>
+    
+</footer>
+
+
+                    <!-- Import JS File -->
+
+    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
+
+
+
+    <script>lsloader.load("js_js","/js/js.min.js?V/53wGualMuiPM3xoetD5Q==", true)</script>
+
+
+
+    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
+
+
+<script type="text/ls-javascript" id="NProgress-script">
+    NProgress.configure({
+        showSpinner: true
+    });
+    NProgress.start();
+    $('#nprogress .bar').css({
+        'background': '#29d'
+    });
+    $('#nprogress .peg').css({
+        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
+    });
+    $('#nprogress .spinner-icon').css({
+        'border-top-color': '#29d',
+        'border-left-color': '#29d'
+    });
+    setTimeout(function() {
+        NProgress.done();
+        $('.fade').removeClass('out');
+    }, 800);
+</script>
+
+
+
+    
+        <script>lsloader.load("sm_js","/js/smoothscroll.js?lOy/ACj5suSNi7ZVFVbpFQ==", true)</script>
+    
+
+
+
+
+
+    <!-- Busuanzi -->
+    <script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+<!-- UC Browser Compatible -->
+<script>
+	var agent = navigator.userAgent.toLowerCase();
+	if(agent.indexOf('ucbrowser')>0) {
+		document.write('<link rel="stylesheet" href="/css/uc.css">');
+	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	}
+</script>
+
+<!-- Import prettify js  -->
+
+    
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
+
+
+
+<!-- Window Load -->
+<!-- add class for prettify -->
+<script type="text/ls-javascript" id="window-load">
+    $(window).on('load', function() {
+        // Post_Toc parent position fixed
+        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
+    });
+
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
+    
+    
+</script>
+
+<!-- MathJax Load-->
+
+
+<!-- Bing Background -->
+
+
+<script type="text/ls-javascript" id="lazy-load">
+    // Offer LazyLoad
+    queue.offer(function(){
+        $('.lazy').lazyload({
+            effect : 'show'
+        });
+    });
+
+    // Start Queue
+    $(document).ready(function(){
+        setInterval(function(){
+            queue.execNext();
+        },200);
+    });
+</script>
+
+<!-- Custom Footer -->
+
+
+
+<script>
+    (function(){
+        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+
+        for (var i = 0; i < scriptList.length; ++i) {
+            var item = scriptList[i];
+            lsloader.runInlineScript(item.id,item.id);
+        }
+    })()
+console.log('\n %c © Material Theme | Version: 1.5.2 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+</script>
+
+                </main>
+            </div>
+        </body>
+    
+</html>

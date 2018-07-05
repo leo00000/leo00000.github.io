@@ -45,7 +45,7 @@
     
     <title>
         
-            标签: Reverse | 
+            看雪CTF2016CrackMe第一题分析 | 
         
         leo00000的个人博客
     </title>
@@ -56,7 +56,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="leo00000&#39; blog">
-    <meta name="keywords" content="ctf 渗透测试 hacker leo00000">
+    <meta name="keywords" content="ctf 渗透测试 hacker leo00000,CrackMe,Reverse">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -83,6 +83,9 @@
         <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
 
         
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/atelier-dune-dark.min.css?Sq+/jscLQsK3lkqis0e/aA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
             
         
 
@@ -214,7 +217,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="leo00000的个人博客">
-    <meta name="msapplication-starturl" content="http://leo00000.cn/tags/Reverse/">
+    <meta name="msapplication-starturl" content="http://leo00000.cn/2018/PEDIY-CTF2016-CrackMe1-writeup/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="leo00000的个人博客">
@@ -229,13 +232,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://leo00000.cn/tags/Reverse/">
+    <meta property="og:url" content="http://leo00000.cn/2018/PEDIY-CTF2016-CrackMe1-writeup/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: Reverse | leo00000的个人博客">
+    <meta property="og:title" content="看雪CTF2016CrackMe第一题分析 | leo00000的个人博客">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="leo00000&#39; blog">
-    
+    <meta property="og:article:tag" content="CrackMe"> <meta property="og:article:tag" content="Reverse"> 
 
+    
+        <meta property="article:published_time" content="Wed Jul 04 2018 00:00:00 GMT+0800">
+        <meta property="article:modified_time" content="Thu Jul 05 2018 13:35:03 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -243,13 +249,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://leo00000.cn/tags/Reverse/index.html" />
+        <link rel="canonical" href="http://leo00000.cn/2018/PEDIY-CTF2016-CrackMe1-writeup/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://leo00000.cn/2018/PEDIY-CTF2016-CrackMe1-writeup/index.html",
+    "headline": "看雪CTF2016CrackMe第一题分析",
+    "datePublished": "Wed Jul 04 2018 00:00:00 GMT+0800",
+    "dateModified": "Thu Jul 05 2018 13:35:03 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "leo00000",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.jpeg"
+        },
+        "description": "The more quiet you are, the more you hear."
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "leo00000的个人博客",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",CrackMe,Reversectf 渗透测试 hacker leo00000",
+    "description": "leo00000&#39; blog",
+}
+</script>
 
 
     
@@ -287,96 +323,252 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
     
-        
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#知识点"><span class="post-toc-number">2.</span> <span class="post-toc-text">知识点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#详细步骤"><span class="post-toc-number">3.</span> <span class="post-toc-text">详细步骤</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#发现反调试"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">发现反调试</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#分析注册过程"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">分析注册过程</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">总结</span></a></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/PEDIY-CTF2016-CrackMe1-writeup/">看雪CTF2016CrackMe第一题分析</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            看雪CTF刷题系列，PEDIY-CTF2016-CM1。
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/PEDIY-CTF2016-CrackMe1-writeup/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.jpeg" width="44px" height="44px" alt="leo00000's avatar">
-            </div>
-            <div>
-                <strong>leo00000</strong>
-                <span>7月 04, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                看雪CTF2016CrackMe第一题分析
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.jpeg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>leo00000</strong>
+        <span>7月 04, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/CrackMe/">CrackMe</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Reverse/">Reverse</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=看雪CTF2016CrackMe第一题分析&url=http://leo00000.cn/2018/PEDIY-CTF2016-CrackMe1-writeup/index.html&pic=http://leo00000.cn/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=leo00000的个人博客&title=看雪CTF2016CrackMe第一题分析&summary=leo00000&#39; blog&pics=http://leo00000.cn/img/favicon.png&url=http://leo00000.cn/2018/PEDIY-CTF2016-CrackMe1-writeup/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>看雪CTF刷题系列，PEDIY-CTF2016-CM1。</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>能力不足，基本上是对着前辈的<a href="https://bbs.pediy.com/thread-213625.html" target="_blank" rel="noopener">Writeup</a>逐步跟下来的,记录一些心得。</p>
+<h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ul>
+<li>OD、IDA基础知识</li>
+<li>Windows反调试</li>
+</ul>
+<h3 id="详细步骤"><a href="#详细步骤" class="headerlink" title="详细步骤"></a>详细步骤</h3><h4 id="发现反调试"><a href="#发现反调试" class="headerlink" title="发现反调试"></a>发现反调试</h4><ol>
+<li>OD加载程序，单步执行到 <strong>0x1C2BC9 call 0x1CC111; call _initterm</strong> 挂掉了，跟进 <em>_initerm</em> 函数执行到 <strong>0x1CC151 call dword ptr [ebp-8]; call 0x1C1000</strong> 第二次挂掉，继续跟进在 <em>0x1C000</em> 跳转到 <em>0x1C1340</em> 处，在 <em>sub_1C1340</em> 中执行到 <em>0x1C1530</em> 会有一个判断直接退出程序，这里我们直接NOP掉，之后来到<strong>0x1C2C44 call 0x1C1560</strong>进入WinMain函数。进入WinMain之前的函数栈 <em>start-&gt;scrt_common_main_seh-&gt;WinMain</em>，在 <em>scrt_common_main_seh</em> 中调用 <em>_initterm</em> 。</li>
+<li><p>进入WinMain之后，界面程序起来之前，会遇到超时检测。通过交叉引用查看clock函数，能发现三处超时检测，如图: </p>
+<img src="/2018/PEDIY-CTF2016-CrackMe1-writeup/nop_clock.png">
+<p>我们直接NOP掉跳转指令，这样就能让CM在OD中跑起来了。</p>
+</li>
+<li><p>给出程序调试过程中的反调试patch:</p>
+<img src="/2018/PEDIY-CTF2016-CrackMe1-writeup/patch.png">
+</li>
+</ol>
+<h4 id="分析注册过程"><a href="#分析注册过程" class="headerlink" title="分析注册过程"></a>分析注册过程</h4><ol>
+<li><p>进入WinMain函数以后，这里有一个技巧对GetWindowTextW函数下断，执行到返回 <em>0x1C232B</em> ,落在 <em>sub_1C2120</em> 函数中，ida分析 <em>sub_1C2120</em> 是窗口处理消息的程序，只有当消息值为 <strong>0x40B</strong> 时才注册成功。继续运行之后， 程序会创建新线程进入 <em>sub_1C20E0</em> ，继而进入 <em>sub_1C1CB0</em> ，可以看出 <em>sub_1C1CB0</em> 就是注册码检测逻辑的主函数。</p>
+</li>
+<li><p>第一次进入 <em>sub_1C1CB0</em> ，调用了 <em>sub_1C1C00</em> 和 <em>sub_1C2A50</em> ，分别要求注册码含有 <strong>‘b’</strong> 和 <strong>‘p’</strong> ，否则返回消息0x40F注册失败。</p>
+<img src="/2018/PEDIY-CTF2016-CrackMe1-writeup/contain_b_p.png">
+</li>
+<li><p>当满足上面条件后，会第二次进入 <em>sub_1C1CB0</em> 函数，在函数中会判断字符长度是否是7，不满足条件会发送消息0x40E或0x40D导致注册失败，所以 <strong>注册码长度是7</strong> 。<img src="/2018/PEDIY-CTF2016-CrackMe1-writeup/length.png"></p>
+</li>
+<li><p>当满足条件后，会进入 <em>sub_1C1A60</em> ，对注册码进行异或加密，之后会进入 <em>sub_1C1870</em> 函数，在 <em>sub_1C1870</em> 对加密的注册码进行了异或解密，将注册码小写转化成大写之后，进行了字符集检测。<img src="/2018/PEDIY-CTF2016-CrackMe1-writeup/xor_encrypt.png">并且要求从第三位开始，解密出来的注册码序列是 <strong>15PB</strong> ，所以注册码的格式是 <strong>??15PB?</strong> 。<img src="/2018/PEDIY-CTF2016-CrackMe1-writeup/check.png"></p>
+</li>
+<li><p>当解密的注册码满足 <strong>??15PB?</strong> 格式后进入 <em>sub_1C1740</em> ，<em>sub_1C1740</em>要求前两位之和是0x63,所以前两位肯定是 <strong>‘1’</strong> 和 <strong>‘2’</strong>，第七位必须是 <strong>‘8’</strong> 。综上，满足条件的注册码有 <strong>1215pb8</strong> 。<img src="/2018/PEDIY-CTF2016-CrackMe1-writeup/xor_encrypt.png"></p>
+</li>
+<li><p>分析过程中关键断点: <img src="/2018/PEDIY-CTF2016-CrackMe1-writeup/breakpoint.png"></p>
+</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>第一步是过掉反调试，让CM能跑起来。</li>
+<li>只有一条道路是通往CM成功的，不断的逆向尝试。</li>
+</ul>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/Windows-Kernel-Exploitation-Tutorial-Part1/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -544,6 +736,14 @@ It will not impact the appearance and can give developers a lot of support :)
                     
 
                     
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
 
                     <!--Footer-->
 <footer class="mdl-mini-footer" id="bottom">
@@ -696,6 +896,10 @@ It will not impact the appearance and can give developers a lot of support :)
 <!-- Import prettify js  -->
 
     
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
 
 
 
@@ -708,6 +912,11 @@ It will not impact the appearance and can give developers a lot of support :)
     });
 
     
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
         
     
     

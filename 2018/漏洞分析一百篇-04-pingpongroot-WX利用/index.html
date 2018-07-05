@@ -45,7 +45,7 @@
     
     <title>
         
-            标签: Reverse | 
+            漏洞分析一百篇-04-pingpongroot-WX利用 | 
         
         leo00000的个人博客
     </title>
@@ -56,7 +56,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="leo00000&#39; blog">
-    <meta name="keywords" content="ctf 渗透测试 hacker leo00000">
+    <meta name="keywords" content="ctf 渗透测试 hacker leo00000,EXP,CVE,Android,UAF">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -83,6 +83,9 @@
         <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
 
         
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/atelier-dune-dark.min.css?Sq+/jscLQsK3lkqis0e/aA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
             
         
 
@@ -214,7 +217,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="leo00000的个人博客">
-    <meta name="msapplication-starturl" content="http://leo00000.cn/tags/Reverse/">
+    <meta name="msapplication-starturl" content="http://leo00000.cn/2018/漏洞分析一百篇-04-pingpongroot-WX利用/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="leo00000的个人博客">
@@ -229,13 +232,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://leo00000.cn/tags/Reverse/">
+    <meta property="og:url" content="http://leo00000.cn/2018/漏洞分析一百篇-04-pingpongroot-WX利用/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: Reverse | leo00000的个人博客">
+    <meta property="og:title" content="漏洞分析一百篇-04-pingpongroot-WX利用 | leo00000的个人博客">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="leo00000&#39; blog">
-    
+    <meta property="og:article:tag" content="EXP"> <meta property="og:article:tag" content="CVE"> <meta property="og:article:tag" content="Android"> <meta property="og:article:tag" content="UAF"> 
 
+    
+        <meta property="article:published_time" content="Wed Jul 04 2018 00:00:00 GMT+0800">
+        <meta property="article:modified_time" content="Wed Jul 04 2018 22:21:29 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -243,13 +249,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://leo00000.cn/tags/Reverse/index.html" />
+        <link rel="canonical" href="http://leo00000.cn/2018/漏洞分析一百篇-04-pingpongroot-WX利用/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://leo00000.cn/2018/漏洞分析一百篇-04-pingpongroot-WX利用/index.html",
+    "headline": "漏洞分析一百篇-04-pingpongroot-WX利用",
+    "datePublished": "Wed Jul 04 2018 00:00:00 GMT+0800",
+    "dateModified": "Wed Jul 04 2018 22:21:29 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "leo00000",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.jpeg"
+        },
+        "description": "The more quiet you are, the more you hear."
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "leo00000的个人博客",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",EXP,CVE,Android,UAFctf 渗透测试 hacker leo00000",
+    "description": "leo00000&#39; blog",
+}
+</script>
 
 
     
@@ -287,96 +323,298 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
     
-        
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#漏洞分析"><span class="post-toc-number">1.</span> <span class="post-toc-text">漏洞分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#分析环境"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">分析环境</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#漏洞成因"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">漏洞成因</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#打造EXP"><span class="post-toc-number">2.</span> <span class="post-toc-text">打造EXP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#补丁"><span class="post-toc-number">3.</span> <span class="post-toc-text">补丁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">总结</span></a></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/PEDIY-CTF2016-CrackMe1-writeup/">看雪CTF2016CrackMe第一题分析</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            看雪CTF刷题系列，PEDIY-CTF2016-CM1。
-
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/PEDIY-CTF2016-CrackMe1-writeup/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.jpeg" width="44px" height="44px" alt="leo00000's avatar">
-            </div>
-            <div>
-                <strong>leo00000</strong>
-                <span>7月 04, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                漏洞分析一百篇-04-pingpongroot-WX利用
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.jpeg" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>leo00000</strong>
+        <span>7月 04, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Android/">Android</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/CVE/">CVE</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/EXP/">EXP</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/UAF/">UAF</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+        
+            <!-- Busuanzi Views -->
+            <a class="post_share-link" href="#">
+                <li class="mdl-menu__item">
+                    <span id="busuanzi_container_page_pv">
+                        <span id="busuanzi_value_page_pv"></span>&nbsp;浏览量
+                    </span>
+                </li>
+            </a>
+        
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=漏洞分析一百篇-04-pingpongroot-WX利用&url=http://leo00000.cn/2018/漏洞分析一百篇-04-pingpongroot-WX利用/index.html&pic=http://leo00000.cn/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=leo00000的个人博客&title=漏洞分析一百篇-04-pingpongroot-WX利用&summary=leo00000&#39; blog&pics=http://leo00000.cn/img/favicon.png&url=http://leo00000.cn/2018/漏洞分析一百篇-04-pingpongroot-WX利用/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 QQ
+            </li>
+        </a>
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>pingpong(CVE-2015-3636)这个漏洞能用来提升权限，Linux kernel的ping套接字实现上存在释放后重利用漏洞，x86-64架构的本地用户利用此漏洞可造成系统崩溃，非x86-64架构的用户可提升其权限，漏洞利用了kernel UAF(use-after-free) bug。</p>
+<h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><h4 id="分析环境"><a href="#分析环境" class="headerlink" title="分析环境"></a>分析环境</h4><p>我选择编译了aarch64最新的android-goldfish-3.10内核，然后revert patch,在Android-27的模拟器环境中进行分析和调试。在调试编写EXP的过程中，由于gdb版本和一些插件的原因，会导致emulator崩溃，这里我选择较低版本的NDK-r10e进行分析调试。关于去补丁可以参考我的<a href="https://leo00000.cn">这篇文章</a>。</p>
+<p>在过程中有一些小坑，这里排一下，Android模拟器中支持的Android版本和内核版本有一定的对应关系，就我尝试过的avd-22对应goldfish3.4.67，avd-19和avd-27对应goldfish3.10.0+。<br>gdb插件gef和内核调试冲突，会直接导致emulator直接奔溃。</p>
+<h4 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因"></a>漏洞成因</h4><p>构建一个简单的POC触发漏洞。</p>
+<pre><code class="c">int sockfd= socket(AF_INET, SOCK_DGRAM, IPPROTO_ICMP);  // refcount =1;       
+structsockaddr addr = { .sa_family = AF_INET };
+int ret =connect(sockfd, &amp;addr, sizeof(addr));  // refcount ++;  创建hash
+structsockaddr _addr = { .sa_family = AF_UNSPEC };
+ret =connect(sockfd, &amp;_addr, sizeof(_addr));  //删除hash；refcount --;
+ret =connect(sockfd, &amp;_addr, sizeof(_addr)); // bug导致继续删除hash；refcount --; refcount
+</code></pre>
+<p>当用户用ICMP socket和AF_UNSPEC作参数进行connect时，内核会进入inet_dgram_connect,继而sk-&gt;sk_prot-&gt;discnnect函数，实质上是udp_disconnect函数，当用户不指定端口号最终会调用ping_unhash，删除当前sock对象的hash，并且让refcount递减一次。关键函数代码：</p>
+<pre><code class="c">int inet_dgram_connect(struct socket *sock, struct sockaddr *uaddr,
+               int addr_len, int flags)
+{
+    ...
+    if (uaddr-&gt;sa_family == AF_UNSPEC)
+        return sk-&gt;sk_prot-&gt;disconnect(sk, flags);
+    ...
+}
+
+int udp_disconnect(struct sock *sk, int flags)
+{
+    ...
+    if (!(sk-&gt;sk_userlocks &amp; SOCK_BINDPORT_LOCK)) {
+        sk-&gt;sk_prot-&gt;unhash(sk);
+        inet-&gt;inet_sport = 0;
+    }
+    ...
+}
+
+void ping_unhash(struct sock *sk)
+{
+    ...
+    if (sk_hashed(sk)) {
+        write_lock_bh(&amp;ping_table.lock);
+        hlist_nulls_del(&amp;sk-&gt;sk_nulls_node);
+        ...
+    }
+}
+</code></pre>
+<p>在第一次调用hlist_nuhlist_nulls_del删除hash后会将hlist_node.pprv=0x200200,然后在使用相同的参数调用一次connect，因为hash已经删除了，此时语句本应该不执行，但是由于hlist_node.pprv=0x200200!=NULL判断逻辑继续执行，refcount被多减了一次。因此，攻击者只需要创建一个ICMP socket，连续调用3个connect(第一个connect用来生成hash),就可以把refcount置为0，从而释放sock对象导致UAF。<br>在最新的arm64中，已经定义了ILLEGAL_POINTER_VALUE为0xdead000000000000，而用户无法map到这个地址，为了还原漏洞环境，在编译的时候，我们做了如下修改：<br><img src="/2018/漏洞分析一百篇-04-pingpongroot-WX利用/diff.png"></p>
+<h3 id="打造EXP"><a href="#打造EXP" class="headerlink" title="打造EXP"></a>打造EXP</h3><p>这里主要参考了KeenTeam的这篇文章<a href="https://www.blackhat.com/docs/us-15/materials/us-15-Xu-Ah-Universal-Android-Rooting-Is-Back-wp.pdf" target="_blank" rel="noopener">Own your Android! Yet Another Universal Root</a>。大致思路如下:</p>
+<ol>
+<li>大量分配ICMP socket，抬高SLAB空间，将存在漏洞的sock布局在其中。</li>
+<li>在用户态大量mmap使得内核physmap和SLAB地址相撞，覆盖其中存在漏洞的sock。</li>
+<li>判断sock指针位置，计算并覆盖close函数，控制内核EIP。</li>
+<li>利用JOP泄露出内核栈指针sp，获取thread_info结构。</li>
+<li>利用JOP修改thread_info.addr_limit的值为0xffffffff，绕过PAX。</li>
+<li>修改thread_info.task.cred提权。</li>
+<li>绕过SELinux，执行system(sh)。</li>
+</ol>
+<p>论文中描述，在内核空间中，physmap和SLABs一般会处于不同的地方，physmap位于相对较高的地址，SLABs位于相对较低的地址，由于内核空间里physmap和SLABs靠得很近，可以通过先创建大量的socket对象抬高SLAB地址，exp中会先获取单个进程可创建的最大socket数max_fds，然后循环每个进程创建max_fds个正常的socket然后加上一个漏洞的vul_socket，最终生成了65000个正常的socket加上535个vul_socket。</p>
+<p>然后我们将正常的socket都释放掉，在用户空间不断map内存把数据映射到physmap，通过sk-&gt;sk_stamp判断内核空间physmap是否和SLAB重叠,可以得到3个被覆盖的socket。过程中通过ioctl(sockfd, SIOCGSTAMPNS, (struct timespec* ))函数获取到sk-&gt;sk_stamp的值：</p>
+<pre><code class="c">int sock_get_timestampns(struct sock *sk, struct timespec __user *userstamp)
+{
+    struct timespec ts;
+    if (!sock_flag(sk, SOCK_TIMESTAMP))
+        sock_enable_timestamp(sk, SOCK_TIMESTAMP);
+    ts = ktime_to_timespec(sk-&gt;sk_stamp);
+    if (ts.tv_sec == -1)
+        return -ENOENT;
+    if (ts.tv_sec == 0) {
+        sk-&gt;sk_stamp = ktime_get_real();
+        ts = ktime_to_timespec(sk-&gt;sk_stamp);
+    }
+    return copy_to_user(userstamp, &amp;ts, sizeof(ts)) ? -EFAULT : 0;
+}
+</code></pre>
+<p>最终效果如下图：<br><img src="/2018/漏洞分析一百篇-04-pingpongroot-WX利用/physmap.png"></p>
+<p>我们对用户态mmap出来的内存修改，实际也会映射到physmap空间，如果找到两个以上sock被覆盖，这时候我们就可以利用socket的sk-&gt;sk_prot-&gt;close函数，将其指针覆盖掉，然后调用close函数，这个时候我们就已经控制了内核eip，控制了代码的执行流程。中间还有很多小坑，比方说close执行后会执行到ip_mc_drop_socket函数，会对mc_list进行判断，需要我们将其置0，这里就不再一一赘述。针对不同的SePolicy，我们有时能直接setenforce 0，相对就简单多了。给出<a href="https://github.com/leo00000/pwn/tree/master/CVE-2015-3636" target="_blank" rel="noopener">源码EXP</a>。<br>在虚拟机中我们root成功。<br><img src="/2018/漏洞分析一百篇-04-pingpongroot-WX利用/success.png"></p>
+<h3 id="补丁"><a href="#补丁" class="headerlink" title="补丁"></a>补丁</h3><p><a href="https://github.com/torvalds/linux/commit/a134f083e79fb4c3d0a925691e732c56911b4326" target="_blank" rel="noopener">补丁</a>很简单，在删除指针后将指针置为NULL。<br><img src="/2018/漏洞分析一百篇-04-pingpongroot-WX利用/patch.png"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在physmap和SLAB共用内存时，有一些版本的physmap是可执行的，这种利用类型就是ret2dir，此时可以直接将shellcode布置到内核中执行，会让exp变得简单的多。<br>针对SElinux，在没有开启KALSR时并且有任意写权限时，有一种思路时直接patch掉selinux_enforcing和selinux_enable变量。</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+        <a href="/2018/漏洞分析一百篇-02-Adobe Reader TTF字体SING表栈溢出漏洞/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/漏洞分析一百篇-03-Dirtycow条件竞争漏洞/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -544,6 +782,14 @@ It will not impact the appearance and can give developers a lot of support :)
                     
 
                     
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
+
+                    
 
                     <!--Footer-->
 <footer class="mdl-mini-footer" id="bottom">
@@ -696,6 +942,10 @@ It will not impact the appearance and can give developers a lot of support :)
 <!-- Import prettify js  -->
 
     
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
 
 
 
@@ -708,6 +958,11 @@ It will not impact the appearance and can give developers a lot of support :)
     });
 
     
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
         
     
     
