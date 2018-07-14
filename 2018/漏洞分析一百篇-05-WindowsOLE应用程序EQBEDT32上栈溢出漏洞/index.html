@@ -45,7 +45,7 @@
     
     <title>
         
-            漏洞分析一百篇-04-pingpongroot-WX利用 | 
+            漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞 | 
         
         leo00000的个人博客
     </title>
@@ -56,7 +56,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="leo00000&#39; blog">
-    <meta name="keywords" content="ctf 渗透测试 hacker leo00000,EXP,CVE,Android,UAF">
+    <meta name="keywords" content="ctf 渗透测试 hacker leo00000,EXP,CVE">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -217,7 +217,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="leo00000的个人博客">
-    <meta name="msapplication-starturl" content="http://leo00000.cn/2018/漏洞分析一百篇-04-pingpongroot-WX利用/">
+    <meta name="msapplication-starturl" content="http://leo00000.cn/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="leo00000的个人博客">
@@ -232,16 +232,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://leo00000.cn/2018/漏洞分析一百篇-04-pingpongroot-WX利用/">
+    <meta property="og:url" content="http://leo00000.cn/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="漏洞分析一百篇-04-pingpongroot-WX利用 | leo00000的个人博客">
+    <meta property="og:title" content="漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞 | leo00000的个人博客">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="leo00000&#39; blog">
-    <meta property="og:article:tag" content="EXP"> <meta property="og:article:tag" content="CVE"> <meta property="og:article:tag" content="Android"> <meta property="og:article:tag" content="UAF"> 
+    <meta property="og:article:tag" content="EXP"> <meta property="og:article:tag" content="CVE"> 
 
     
         <meta property="article:published_time" content="Wed Jul 04 2018 00:00:00 GMT+0800">
-        <meta property="article:modified_time" content="Thu Jul 05 2018 21:11:51 GMT+0800">
+        <meta property="article:modified_time" content="Sat Jul 14 2018 20:06:41 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -249,7 +249,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://leo00000.cn/2018/漏洞分析一百篇-04-pingpongroot-WX利用/index.html" />
+        <link rel="canonical" href="http://leo00000.cn/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -261,10 +261,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "http://leo00000.cn/2018/漏洞分析一百篇-04-pingpongroot-WX利用/index.html",
-    "headline": "漏洞分析一百篇-04-pingpongroot-WX利用",
+    "mainEntityOfPage": "http://leo00000.cn/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/index.html",
+    "headline": "漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞",
     "datePublished": "Wed Jul 04 2018 00:00:00 GMT+0800",
-    "dateModified": "Thu Jul 05 2018 21:11:51 GMT+0800",
+    "dateModified": "Sat Jul 14 2018 20:06:41 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "leo00000",
@@ -282,7 +282,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": ",EXP,CVE,Android,UAFctf 渗透测试 hacker leo00000",
+    "keywords": ",EXP,CVEctf 渗透测试 hacker leo00000",
     "description": "leo00000&#39; blog",
 }
 </script>
@@ -352,7 +352,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#漏洞分析"><span class="post-toc-number">1.</span> <span class="post-toc-text">漏洞分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#分析环境"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">分析环境</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#漏洞成因"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">漏洞成因</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#打造EXP"><span class="post-toc-number">2.</span> <span class="post-toc-text">打造EXP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#补丁"><span class="post-toc-number">3.</span> <span class="post-toc-text">补丁</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-number">4.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#OLE编程与逆向"><span class="post-toc-number">2.</span> <span class="post-toc-text">OLE编程与逆向</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OLE编程"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">OLE编程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#OLE逆向"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">OLE逆向</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#识别初始化过程"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">识别初始化过程</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#识别接口函数"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">识别接口函数</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#漏洞分析"><span class="post-toc-number">3.</span> <span class="post-toc-text">漏洞分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#漏洞利用"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">漏洞利用</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Metasploit框架"><span class="post-toc-number">4.</span> <span class="post-toc-text">Metasploit框架</span></a></li></ol>
     </ul>
     
 
@@ -384,7 +384,7 @@
         
     
             <p class="article-headline-p">
-                漏洞分析一百篇-04-pingpongroot-WX利用
+                漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞
             </p>
         </div>
 
@@ -427,7 +427,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/Android/">Android</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/CVE/">CVE</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/EXP/">EXP</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/UAF/">UAF</a>
+        <a class="post_tag-link" href="/tags/CVE/">CVE</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/EXP/">EXP</a>
     </ul>
     
 
@@ -455,7 +455,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=漏洞分析一百篇-04-pingpongroot-WX利用&url=http://leo00000.cn/2018/漏洞分析一百篇-04-pingpongroot-WX利用/index.html&pic=http://leo00000.cn/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞&url=http://leo00000.cn/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/index.html&pic=http://leo00000.cn/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -476,7 +476,7 @@
 
     <!-- Share QQ -->
     
-        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=leo00000的个人博客&title=漏洞分析一百篇-04-pingpongroot-WX利用&summary=leo00000&#39; blog&pics=http://leo00000.cn/img/favicon.png&url=http://leo00000.cn/2018/漏洞分析一百篇-04-pingpongroot-WX利用/index.html" target="_blank">
+        <a class="post_share-link" href="http://connect.qq.com/widget/shareqq/index.html?site=leo00000的个人博客&title=漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞&summary=leo00000&#39; blog&pics=http://leo00000.cn/img/favicon.png&url=http://leo00000.cn/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 QQ
             </li>
@@ -495,79 +495,172 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>pingpong(CVE-2015-3636)这个漏洞能用来提升权限，Linux kernel的ping套接字实现上存在释放后重利用漏洞，x86-64架构的本地用户利用此漏洞可造成系统崩溃，非x86-64架构的用户可提升其权限，漏洞利用了kernel UAF(use-after-free) bug。</p>
-<h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><h4 id="分析环境"><a href="#分析环境" class="headerlink" title="分析环境"></a>分析环境</h4><p>我选择编译了aarch64最新的android-goldfish-3.10内核，然后revert patch,在Android-27的模拟器环境中进行分析和调试。在调试编写EXP的过程中，由于gdb版本和一些插件的原因，会导致emulator崩溃，这里我选择较低版本的NDK-r10e进行分析调试。关于去补丁可以参考我的<a href="https://leo00000.cn">这篇文章</a>。</p>
-<p>在过程中有一些小坑，这里排一下，Android模拟器中支持的Android版本和内核版本有一定的对应关系，就我尝试过的avd-22对应goldfish3.4.67，avd-19和avd-27对应goldfish3.10.0+。<br>gdb插件gef和内核调试冲突，会直接导致emulator直接奔溃。</p>
-<h4 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因"></a>漏洞成因</h4><p>构建一个简单的POC触发漏洞。</p>
-<pre><code class="c">int sockfd= socket(AF_INET, SOCK_DGRAM, IPPROTO_ICMP);  // refcount =1;       
-structsockaddr addr = { .sa_family = AF_INET };
-int ret =connect(sockfd, &amp;addr, sizeof(addr));  // refcount ++;  创建hash
-structsockaddr _addr = { .sa_family = AF_UNSPEC };
-ret =connect(sockfd, &amp;_addr, sizeof(_addr));  //删除hash；refcount --;
-ret =connect(sockfd, &amp;_addr, sizeof(_addr)); // bug导致继续删除hash；refcount --; refcount
-</code></pre>
-<p>当用户用ICMP socket和AF_UNSPEC作参数进行connect时，内核会进入inet_dgram_connect,继而sk-&gt;sk_prot-&gt;discnnect函数，实质上是udp_disconnect函数，当用户不指定端口号最终会调用ping_unhash，删除当前sock对象的hash，并且让refcount递减一次。关键函数代码：</p>
-<pre><code class="c">int inet_dgram_connect(struct socket *sock, struct sockaddr *uaddr,
-               int addr_len, int flags)
-{
-    ...
-    if (uaddr-&gt;sa_family == AF_UNSPEC)
-        return sk-&gt;sk_prot-&gt;disconnect(sk, flags);
-    ...
-}
-
-int udp_disconnect(struct sock *sk, int flags)
-{
-    ...
-    if (!(sk-&gt;sk_userlocks &amp; SOCK_BINDPORT_LOCK)) {
-        sk-&gt;sk_prot-&gt;unhash(sk);
-        inet-&gt;inet_sport = 0;
-    }
-    ...
-}
-
-void ping_unhash(struct sock *sk)
-{
-    ...
-    if (sk_hashed(sk)) {
-        write_lock_bh(&amp;ping_table.lock);
-        hlist_nulls_del(&amp;sk-&gt;sk_nulls_node);
-        ...
-    }
-}
-</code></pre>
-<p>在第一次调用hlist_nuhlist_nulls_del删除hash后会将hlist_node.pprv=0x200200,然后在使用相同的参数调用一次connect，因为hash已经删除了，此时语句本应该不执行，但是由于hlist_node.pprv=0x200200!=NULL判断逻辑继续执行，refcount被多减了一次。因此，攻击者只需要创建一个ICMP socket，连续调用3个connect(第一个connect用来生成hash),就可以把refcount置为0，从而释放sock对象导致UAF。<br>在最新的arm64中，已经定义了ILLEGAL_POINTER_VALUE为0xdead000000000000，而用户无法map到这个地址，为了还原漏洞环境，在编译的时候，我们做了如下修改：<br><img src="/2018/漏洞分析一百篇-04-pingpongroot-WX利用/diff.png"></p>
-<h3 id="打造EXP"><a href="#打造EXP" class="headerlink" title="打造EXP"></a>打造EXP</h3><p>这里主要参考了KeenTeam的这篇文章<a href="https://www.blackhat.com/docs/us-15/materials/us-15-Xu-Ah-Universal-Android-Rooting-Is-Back-wp.pdf" target="_blank" rel="noopener">Own your Android! Yet Another Universal Root</a>。大致思路如下:</p>
+        <p>CVE-2017-11882是windows OLE应用程序EQNEDT32.exe上的一个漏洞，可以实现远程代码执行。</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>有关于OLE漏洞最近几年不断的曝光出来，CVE-2012-0158、CVE-2014-4114、CVE-2015-1641、CVE-2015-1641、CVE-2017-11882、CVE-2018-0802等等，盛产CVE而且利用难度不高，影响还是比较大的。Haifei Li(haifei.li@intel.com)和Bing Sun(bing.sun@intel.com)在这方面有两篇很好的文章：<a href="/pdf/us-15-Li-Attacking-Interoperability-An-OLE-Edition.pdf">Attacking Interoperability: ​An OLE Edition</a>和<a href="/pdf/Moniker_Magic_final.pdf">Moniker Magic: Running Scripts Directly in Microsoft Office</a>,看雪上有大佬的<a href="https://bbs.pediy.com/thread-219234.htm" target="_blank" rel="noopener">译文</a>，这里就以CVE-2017-11882为例，在OLE攻击面中分析与利用。</p>
+<h3 id="OLE编程与逆向"><a href="#OLE编程与逆向" class="headerlink" title="OLE编程与逆向"></a>OLE编程与逆向</h3><h4 id="OLE编程"><a href="#OLE编程" class="headerlink" title="OLE编程"></a>OLE编程</h4><p>推荐两个资源<a href="https://download.csdn.net/download/yjwffgip456/4632888" target="_blank" rel="noopener">COM编程精彩实例.pdf</a>和<a href="https://blog.csdn.net/wangqiulin123456/article/list/2?t=1" target="_blank" rel="noopener">IT民工的博客</a>。这里说一些大概，更多细节可以从资源中了解到。<br>OLE(Object Linking and Embedding)是COM的一部分，COM由两部分组成，COM客户端和COM服务器，以CVE-2017-11882来说，office中的word进程winword.exe就是COM客户端，嵌入其中的EQNEDT32.exe就是COM服务器。COM服务器有两类，一类是DLL将自己映射到客户端进程空间，叫做进程中服务器；另外一类是EXE有着自己独立的进程空间，服务器和客户端通过LPC进行通信，叫做进程外服务器，也叫本地服务器。CVE-2017-11882中EQNEDT32.exe就是进程外服务器。<br>通过了解进COM程外服务器编程，我们知道OLE服务器的一些特征：</p>
 <ol>
-<li>大量分配ICMP socket，抬高SLAB空间，将存在漏洞的sock布局在其中。</li>
-<li>在用户态大量mmap使得内核physmap和SLAB地址相撞，覆盖其中存在漏洞的sock。</li>
-<li>判断sock指针位置，计算并覆盖close函数，控制内核EIP。</li>
-<li>利用JOP泄露出内核栈指针sp，获取thread_info结构。</li>
-<li>利用JOP修改thread_info.addr_limit的值为0xffffffff，绕过PAX。</li>
-<li>修改thread_info.task.cred提权。</li>
-<li>绕过SELinux，执行system(sh)。</li>
+<li>会调用CoInitialize()进行COM初始化工作，对于OLE是OleInitialize()函数</li>
+<li>OLE中会实现一些特定功能的接口函数，至少包括IUnknown、IPersist、IPersistStorage、IOleObject等。关于更多接口信息参考<a href="https://blog.csdn.net/dotneterbj/article/details/20727173" target="_blank" rel="noopener">链接</a>。对这些接口的初始化工作里OleInitialize()不远。</li>
+<li>初始化完成后会调用CoRegisterClassObject将EXE对象注册到表中供其他程序使用。</li>
+<li>会调用一些关键函数，如：coml2!CExposedDocFile::OpenStream(), coml2!CExposedStream::Read()</li>
 </ol>
-<p>论文中描述，在内核空间中，physmap和SLABs一般会处于不同的地方，physmap位于相对较高的地址，SLABs位于相对较低的地址，由于内核空间里physmap和SLABs靠得很近，可以通过先创建大量的socket对象抬高SLAB地址，exp中会先获取单个进程可创建的最大socket数max_fds，然后循环每个进程创建max_fds个正常的socket然后加上一个漏洞的vul_socket，最终生成了65000个正常的socket加上535个vul_socket。</p>
-<p>然后我们将正常的socket都释放掉，在用户空间不断map内存把数据映射到physmap，通过sk-&gt;sk_stamp判断内核空间physmap是否和SLAB重叠,可以得到3个被覆盖的socket。过程中通过ioctl(sockfd, SIOCGSTAMPNS, (struct timespec* ))函数获取到sk-&gt;sk_stamp的值：</p>
-<pre><code class="c">int sock_get_timestampns(struct sock *sk, struct timespec __user *userstamp)
-{
-    struct timespec ts;
-    if (!sock_flag(sk, SOCK_TIMESTAMP))
-        sock_enable_timestamp(sk, SOCK_TIMESTAMP);
-    ts = ktime_to_timespec(sk-&gt;sk_stamp);
-    if (ts.tv_sec == -1)
-        return -ENOENT;
-    if (ts.tv_sec == 0) {
-        sk-&gt;sk_stamp = ktime_get_real();
-        ts = ktime_to_timespec(sk-&gt;sk_stamp);
-    }
-    return copy_to_user(userstamp, &amp;ts, sizeof(ts)) ? -EFAULT : 0;
-}
+<p>关于OLE客户端，如何获取CLSID和数据，在<a href="/pdf/us-15-Li-Attacking-Interoperability-An-OLE-Edition.pdf">An OLE Edition</a>论文中做了很全面的解释。将整个过程简单的表示出来，如下图：<br></p>
+<h4 id="OLE逆向"><a href="#OLE逆向" class="headerlink" title="OLE逆向"></a>OLE逆向</h4><p>有了上面的基础，逆向就会相对简单一些。这里的逆向我们主要做的是静态分析工作，动态调试留到漏洞分析去讲。静态分析在IDA中我们主要做两个工作，识别初始化过程和接口函数。</p>
+<h5 id="识别初始化过程"><a href="#识别初始化过程" class="headerlink" title="识别初始化过程"></a>识别初始化过程</h5><p>在前面正向编程过程中我们知道一个关键函数OleInitialize()、CoRegisterClassObject()，定位到函数sub_40415B，该函数就是服务器程序的初始化函数了。</p>
+<h5 id="识别接口函数"><a href="#识别接口函数" class="headerlink" title="识别接口函数"></a>识别接口函数</h5><p>接口函数的初始化工作应该离OleInitialize函数不会太远，可以肯定在sub_40415B初始化函数中了。通过OleView工具，我们看到了Microsoft Equation3.0注册了9个接口，<br><img src="/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/oleview.png"><br>其中IclientSecurity和IMultiQI接口是供UWP应用使用的，对与desktop app我们会实现其余的7个接口，对比接口特征然后我们定位到sub_40440A，有很明显的分支结构，有大量的虚函数，我们判定sub_40440A应该是接口函数的初始化函数，然后参照IPersistStorageVtbl定义对比接口数量，IPersistStorage是10个，其中有10个虚函数的分支有两个(loc_404749和loc_4048B4)，继续比较函数功能发现分支loc_404749是用来初始化IPersistStorage接口的，loc_4048B4是用来初始化IOleInPlaceActiveObject接口的。<br>其中IPersistStorageVtbl定义能通过MSDN查到，在Objidl.h中：</p>
+<pre><code class="c">EXTERN_C const IID IID_IPersistStorage;
+
+#if defined(__cplusplus) &amp;&amp; !defined(CINTERFACE)
+
+    MIDL_INTERFACE(&quot;0000010a-0000-0000-C000-000000000046&quot;)
+    IPersistStorage : public IPersist
+    {
+    public:
+        virtual HRESULT STDMETHODCALLTYPE IsDirty( void) = 0;
+
+        virtual HRESULT STDMETHODCALLTYPE InitNew( 
+            /* [unique][in] */ __RPC__in_opt IStorage *pStg) = 0;
+
+        virtual HRESULT STDMETHODCALLTYPE Load( 
+            /* [unique][in] */ __RPC__in_opt IStorage *pStg) = 0;
+
+        virtual HRESULT STDMETHODCALLTYPE Save( 
+            /* [unique][in] */ __RPC__in_opt IStorage *pStgSave,
+            /* [in] */ BOOL fSameAsLoad) = 0;
+
+        virtual HRESULT STDMETHODCALLTYPE SaveCompleted( 
+            /* [unique][in] */ __RPC__in_opt IStorage *pStgNew) = 0;
+
+        virtual HRESULT STDMETHODCALLTYPE HandsOffStorage( void) = 0;
+
+    };
+
+
+#else   /* C style interface */
+
+    typedef struct IPersistStorageVtbl
+    {
+        BEGIN_INTERFACE
+
+        HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+            __RPC__in IPersistStorage * This,
+            /* [in] */ __RPC__in REFIID riid,
+            /* [annotation][iid_is][out] */ 
+            _COM_Outptr_  void **ppvObject);
+
+        ULONG ( STDMETHODCALLTYPE *AddRef )( 
+            __RPC__in IPersistStorage * This);
+
+        ULONG ( STDMETHODCALLTYPE *Release )( 
+            __RPC__in IPersistStorage * This);
+
+        HRESULT ( STDMETHODCALLTYPE *GetClassID )( 
+            __RPC__in IPersistStorage * This,
+            /* [out] */ __RPC__out CLSID *pClassID);
+
+        HRESULT ( STDMETHODCALLTYPE *IsDirty )( 
+            __RPC__in IPersistStorage * This);
+
+        HRESULT ( STDMETHODCALLTYPE *InitNew )( 
+            __RPC__in IPersistStorage * This,
+            /* [unique][in] */ __RPC__in_opt IStorage *pStg);
+
+        HRESULT ( STDMETHODCALLTYPE *Load )( 
+            __RPC__in IPersistStorage * This,
+            /* [unique][in] */ __RPC__in_opt IStorage *pStg);
+
+        HRESULT ( STDMETHODCALLTYPE *Save )( 
+            __RPC__in IPersistStorage * This,
+            /* [unique][in] */ __RPC__in_opt IStorage *pStgSave,
+            /* [in] */ BOOL fSameAsLoad);
+
+        HRESULT ( STDMETHODCALLTYPE *SaveCompleted )( 
+            __RPC__in IPersistStorage * This,
+            /* [unique][in] */ __RPC__in_opt IStorage *pStgNew);
+
+        HRESULT ( STDMETHODCALLTYPE *HandsOffStorage )( 
+            __RPC__in IPersistStorage * This);
+
+        END_INTERFACE
+    } IPersistStorageVtbl;
+
+    interface IPersistStorage
+    {
+        CONST_VTBL struct IPersistStorageVtbl *lpVtbl;
+    };
 </code></pre>
-<p>最终效果如下图：<br><img src="/2018/漏洞分析一百篇-04-pingpongroot-WX利用/physmap.png"></p>
-<p>我们对用户态mmap出来的内存修改，实际也会映射到physmap空间，如果找到两个以上sock被覆盖，这时候我们就可以利用socket的sk-&gt;sk_prot-&gt;close函数，将其指针覆盖掉，然后调用close函数，这个时候我们就已经控制了内核eip，控制了代码的执行流程。中间还有很多小坑，比方说close执行后会执行到ip_mc_drop_socket函数，会对mc_list进行判断，需要我们将其置0，这里就不再一一赘述。针对不同的SePolicy，我们有时能直接setenforce 0，相对就简单多了。给出<a href="https://github.com/leo00000/pwn/tree/master/CVE-2015-3636" target="_blank" rel="noopener">源码EXP</a>。<br>在虚拟机中我们root成功。<br><img src="/2018/漏洞分析一百篇-04-pingpongroot-WX利用/success.png"></p>
-<h3 id="补丁"><a href="#补丁" class="headerlink" title="补丁"></a>补丁</h3><p><a href="https://github.com/torvalds/linux/commit/a134f083e79fb4c3d0a925691e732c56911b4326" target="_blank" rel="noopener">补丁</a>很简单，在删除指针后将指针置为NULL。<br><img src="/2018/漏洞分析一百篇-04-pingpongroot-WX利用/patch.png"></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在physmap和SLAB共用内存时，有一些版本的physmap是可执行的，这种利用类型就是ret2dir，此时可以直接将shellcode布置到内核中执行，会让exp变得简单的多。<br>针对SElinux，在没有开启KASLR时并且有任意写权限时，有一种思路时直接patch掉selinux_enforcing和selinux_enable变量。</p>
+<p>而且在头文件能识别出个接口的IID，在IDA中标注出来，IDA也能自动帮我们完成这些工作。</p>
+<pre><code class="c">typedef struct _GUID { 
+    DWORD   Data1; 
+    WORD    Data2; 
+    WORD    Data3; 
+    BYTE    Data4[8]; 
+} GUID;
+typedef GUID IID;
+typedef IID* REFIID;
+</code></pre>
+<img src="/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/CLSIDs.png">
+<h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><p>我们知道CVE-2017-11882和之前的漏洞一样，也是在IPersistStorage::Load()中出了问题，我们使用CFlags附加调试EQNEDT32.exe，在该函数下断点开始分析，利用栈回溯的方法执行到弹出计算器。查看调用栈如图：<br><img src="/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/call_stack.png"><br>整理出过程中关键的几个函数IPersistStorage::Load()中通过CExposedStream::Read()，分两次分别读入了EQNOLEFILEHDR和MTEFData，并在sub_42F8FF函数中处理MTEFData数据：<br><img src="/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/step1.png"></p>
+<p>处理MTEFData会进入sub_43755C，该函数主要是循环读入record，根据record tag处理record content，当record tag=0x8(即读到FONT tag时)会进入sub_43A720,在这个函数中循环使用setjmp实现，和平常不同：<br><img src="/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/step2.png"></p>
+<p>之后会进入到sub_43B418，该函数会读取fontName到指针lpLogFont。<br><img src="/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/step3.png"><br><img src="/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/step4.png"></p>
+<p>最终在sub_41160F中，进行字符串拷贝时造成了栈溢出，变量&amp;v12=ebp-2Ch，超过这个值时就会造成栈溢出了。<br><img src="/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/step5.png"></p>
+<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><p>在动态调试的过程中，我们能清楚看到程序对结构体的处理，当我们手头没有一份公开的结构体说明的时候，比较好的办法就是构造一个样本，提取其中的结构体。如果能从网上找到一些解释说明，对我们来说当然更好，这里有一份<a href="http://rtf2latex2e.sourceforge.net/MTEF3.html" target="_blank" rel="noopener">MTEF3格式</a>和<a href="http://www.cnblogs.com/netexplore/archive/2011/07/17/2108577.html" target="_blank" rel="noopener">RTF格式</a>的解释说明就直接拿来用了。<br>在实际漏洞挖掘中，漏洞分析本身就是构造POC的过程，通过分析我们知道漏洞主要问题出在对文档中Equation Native Stream Data的处理，Equation Native Stream Data = EQNOLEFILEHDR + MTEFData，其中MTEFData = MTEFHead + MTEF Byte Stream。参考一份正常样本，假设我们要触发EQNEDT32.EXE中的漏洞，构造出EQNIKEFUKEHDR必须满足：</p>
+<pre><code class="c">struct EQNOLEFILEHDR {
+   WORD    cbHdr;     // 格式头长度，固定为0x1C。
+   DWORD   version;   // 固定为0x00020000。
+   WORD    cf;        // 该公式对象的剪贴板格式。
+   DWORD   cbObject;  // MTEF数据的长度，不包括头部。
+   DWORD   reserved1; // 未公开
+   DWORD   reserved2; // 未公开
+   DWORD   reserved3; // 未公开
+   DWORD   reserved4; // 未公开
+};
+</code></pre>
+<p>同时我们知道问题具体是在MTEFByte中对FONT RECORD的处理，那就可以直接从正常样本中提取MTEF HEAD：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">偏移量</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">构造样本值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0</td>
+<td style="text-align:left">MTEF版本号</td>
+<td style="text-align:left">0x03</td>
+</tr>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:left">该数据的生成系统</td>
+<td style="text-align:left">0x01 表示Windows系统</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:left">该数据的生成产品</td>
+<td style="text-align:left">0x01 表示有公式编辑器生成</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:left">产品主版本号</td>
+<td style="text-align:left">0x03</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:left">产品子版本号</td>
+<td style="text-align:left">0x0A</td>
+</tr>
+</tbody>
+</table>
+<p>然后是对MTEF Byte Stream的构造，我们要满足下面的条件，并且为了触发漏洞，我们要构造FONT Record:<br><img src="/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/tag.png"><br>参考下图有MTEF Byte Stream = SIZE record + LINE record + FONT record(tag + typeface + style + name)。<br><img src="/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/font_record.png"></p>
+<p>之后就是很熟悉的一个过程了，对于完全没有缓解措施的应用程序，大家应该是信手拈来了，直接覆盖返回值，这里比较巧的是call WinEXE地址是0x00430c12，地址小端的写法刚好是字符串结尾。在winEXE中调用的参数，就是fontName。<br></p>
+<h3 id="Metasploit框架"><a href="#Metasploit框架" class="headerlink" title="Metasploit框架"></a>Metasploit框架</h3><p>长期没有写Ruby了，手生练一练。构造EXP时候主要解决一个问题就是如何扩展到metesploit的payload模块，我们的想法就是通过webclient服务，让靶机下载payload然后利用powershell执行payload。<br>在exploit模块中利用到了powershell和http模块，这里做两点笔记：</p>
+<ol>
+<li>primer接口，参考<a href="https://blog.rapid7.com/2012/12/17/metasploit-hooks/" target="_blank" rel="noopener">https://blog.rapid7.com/2012/12/17/metasploit-hooks/</a></li>
+<li>利用regsvr32 scrobj.dll，执行powershell脚本，参考<a href="https://betanews.com/2016/04/25/bypass-applocker-security/" target="_blank" rel="noopener">https://betanews.com/2016/04/25/bypass-applocker-security/</a></li>
+</ol>
+<p>在github提供完整的[EXP]<a href="https://github.com/leo00000/pwn/blob/master/CVE-2017-11882/msf_CVE_2017_11882.rb" target="_blank" rel="noopener">msf_CVE_2017_11882.rb</a>。</p>
 
         
     
@@ -588,7 +681,7 @@ void ping_unhash(struct sock *sk)
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/漏洞分析一百篇-03-Dirtycow条件竞争漏洞/" id="post_nav-newer" class="prev-content">
+        <a href="/2018/漏洞分析一百篇-04-pingpongroot-WX利用/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -601,14 +694,6 @@ void ping_unhash(struct sock *sk)
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
-    
-        <a href="/2018/漏洞分析一百篇-05-WindowsOLE应用程序EQBEDT32上栈溢出漏洞/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
     
 </nav>
 
